@@ -75,12 +75,23 @@ footer{padding:2.5rem 0 3rem;border-top:1.5px solid var(--line);color:var(--mute
 pre{margin:1.25rem 0 0;background:var(--surface);border:1.5px solid var(--line);border-radius:.9rem;padding:1.1rem;overflow-x:auto;font-size:.85rem;line-height:1.5}
 .copy{margin-top:.75rem}
 @media (max-width:720px){.case{grid-template-columns:1fr}.steps{flex-direction:row;flex-wrap:wrap}}
+.arch{display:grid;gap:1rem}
+.node{font:500 1rem "IBM Plex Sans",sans-serif;text-align:center;padding:1rem;border-radius:.8rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.node small{display:block;color:var(--muted);font-weight:400}
+.node[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.node[aria-pressed="true"] small{color:var(--accent)}
+.os{border:1.5px dashed var(--accent);border-radius:.9rem;padding:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.os>b{grid-column:1/-1;font-family:"Bricolage Grotesque",sans-serif}
+.dots{display:flex;gap:.3rem;justify-content:center;margin-top:.5rem}
+.dots i{width:.9rem;height:.9rem;border-radius:.2rem;background:var(--accent)}
+.link{text-align:center;color:var(--muted);font-size:.92rem}
+@media (max-width:720px){.os{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="wrap">
 <nav aria-label="Navigation principale"><b>Sirine Rhaiem</b>
-<div><a href="#apropos">À propos</a><a href="#projets">Projets</a><a href="#hebergement">Étude de cas</a><a href="#parcours">Parcours</a><a href="#competences">Compétences</a><a href="#contact">Contact</a><button class="tbtn" id="theme" type="button" aria-label="Changer de thème">Thème</button></div></nav>
+<div><a href="#apropos">À propos</a><a href="#projets">Projets</a><a href="#openstack">Étude de cas</a><a href="#parcours">Parcours</a><a href="#competences">Compétences</a><a href="#contact">Contact</a><button class="tbtn" id="lang" type="button" aria-label="Changer de langue / Change language">EN</button><button class="tbtn" id="theme" type="button" aria-label="Changer de thème">Thème</button></div></nav>
 </header>
 <main>
 <div class="wrap hero">
@@ -106,10 +117,12 @@ pre{margin:1.25rem 0 0;background:var(--surface);border:1.5px solid var(--line);
 <div class="grid">
 <article class="card"><h3>Plateforme B2B d’économie circulaire</h3>
 <p>Conception et déploiement d’une plateforme de mutualisation des surplus industriels et de la logistique, avec de l’IA, sur un cloud privé OpenStack. Projet intégré Cloud à ESPRIT.</p>
-<ul class="tags"><li>OpenStack</li><li>Heat</li><li>Ansible</li><li>Prometheus</li><li>Grafana</li></ul></article>
+<ul class="tags"><li>OpenStack</li><li>Heat</li><li>Ansible</li><li>Prometheus</li><li>Grafana</li></ul><p><a href="https://github.com/nou-hub-tech/eco-ressource-backend" rel="noopener">Voir le code du backend sur GitHub</a></p>
+</article>
 <article class="card"><h3>ERP SaaS multi-tenant</h3>
 <p>Développement et mise en production d’une plateforme ERP SaaS multi-tenant sur infrastructure cloud, pendant mon stage chez Benjeddou Technologie.</p>
-<ul class="tags"><li>Angular</li><li>Spring Boot</li><li>Cloud</li></ul></article>
+<ul class="tags"><li>Angular</li><li>Spring Boot</li><li>Cloud</li></ul><p><a href="https://github.com/sirinerhaiem03/-BenjeddouERP_frontend" rel="noopener">Voir le code du frontend sur GitHub</a></p>
+</article>
 <article class="card"><h3>Suivi des interventions informatiques</h3>
 <p>Application web de gestion et de suivi des requêtes d’intervention informatique dans une usine d’acide phosphorique, au Groupe Chimique Tunisien.</p>
 <ul class="tags"><li>Web</li><li>Gestion de requêtes</li></ul></article>
@@ -123,6 +136,49 @@ pre{margin:1.25rem 0 0;background:var(--surface);border:1.5px solid var(--line);
 <p style="margin-top:1.5rem"><a href="https://github.com/sirinerhaiem03" rel="noopener">Voir le code sur GitHub</a></p>
 </div></section>
 
+<section id="openstack"><div class="wrap">
+<h2>Étude de cas : une plateforme B2B sur cloud privé OpenStack</h2>
+<p class="about" style="margin-bottom:1.5rem">Projet intégré Cloud à ESPRIT : une plateforme B2B d’économie circulaire (surplus industriels, logistique mutualisée, IA). Nous avons déployé le backend sur un cloud privé OpenStack de 7 machines et le frontend sur Azure. Le détail est masqué pour alléger la page.</p>
+<button class="btn main" id="ostoggle" type="button" aria-expanded="false" aria-controls="osbody" style="font:inherit;cursor:pointer">Afficher l’étude de cas</button>
+<div id="osbody" hidden style="margin-top:1.5rem">
+<p class="link" style="text-align:left;margin-bottom:1rem">Cliquez sur un élément du schéma pour voir son rôle.</p>
+<div class="arch">
+<button class="node" data-k="az" type="button" aria-pressed="true">Frontend<small>Hébergé sur Azure</small></button>
+<div class="link">appels vers l’API du backend</div>
+<div class="os"><b>Cloud privé OpenStack : 7 machines, backend de la plateforme</b>
+<button class="node" data-k="ctl" type="button" aria-pressed="false">Contrôleur<small>1 machine</small></button>
+<button class="node" data-k="cmp" type="button" aria-pressed="false">Compute<small>4 machines</small><span class="dots"><i></i><i></i><i></i><i></i></span></button>
+<button class="node" data-k="sto" type="button" aria-pressed="false">Stockage<small>2 machines</small><span class="dots"><i></i><i></i></span></button>
+</div></div>
+<div class="panel" id="op" aria-live="polite" style="margin-top:1.25rem"></div>
+<h3 style="margin:2rem 0 .75rem;font-size:1.3rem">Services OpenStack utilisés</h3>
+<div class="grid">
+<div class="card"><h3>Keystone</h3><p>Identité et authentification des utilisateurs et des services.</p></div>
+<div class="card"><h3>Nova</h3><p>Création et gestion des machines virtuelles.</p></div>
+<div class="card"><h3>Neutron</h3><p>Réseaux, sous-réseaux, routeurs et adresses IP flottantes.</p></div>
+<div class="card"><h3>Cinder</h3><p>Volumes de stockage persistants attachés aux machines virtuelles.</p></div>
+<div class="card"><h3>Horizon</h3><p>Tableau de bord web pour piloter le cloud.</p></div>
+<div class="card"><h3>Heat</h3><p>Orchestration : l’infrastructure est décrite dans des templates et redéployable.</p></div>
+</div>
+<h3 style="margin:2rem 0 .75rem;font-size:1.3rem">Outils de déploiement et de supervision</h3>
+<div class="grid">
+<div class="card"><h3>Docker</h3><p>Empaquetage des applications en conteneurs, identiques d’un environnement à l’autre.</p></div>
+<div class="card"><h3>Kubernetes</h3><p>Orchestration des conteneurs : déploiement, mise à l’échelle et redémarrage automatique.</p></div>
+<div class="card"><h3>Ansible</h3><p>Automatisation de la configuration des machines, sans intervention manuelle.</p></div>
+<div class="card"><h3>Prometheus</h3><p>Collecte des métriques de l’infrastructure et des applications.</p></div>
+<div class="card"><h3>Grafana</h3><p>Tableaux de bord pour visualiser ces métriques et suivre l’état de la plateforme.</p></div>
+</div>
+<h3 style="margin:2rem 0 .75rem;font-size:1.3rem">Défis techniques de cette architecture</h3>
+<ul class="tl">
+<li><h3>Relier deux clouds</h3><p>Le frontend sur Azure doit joindre le backend sur OpenStack : exposer l’API en HTTPS via une IP flottante et autoriser l’origine du frontend (CORS).</p></li>
+<li><h3>Réseau sur 7 machines</h3><p>Connecter le contrôleur, les nœuds compute et les nœuds de stockage, et configurer Neutron pour que les machines virtuelles communiquent correctement.</p></li>
+<li><h3>Données persistantes</h3><p>Utiliser des volumes Cinder pour que les données du backend survivent à la suppression d’une machine virtuelle.</p></li>
+<li><h3>Déploiement reproductible</h3><p>Décrire l’infrastructure avec Heat pour la recréer sans refaire chaque étape à la main.</p></li>
+</ul>
+<p style="margin-top:1rem"><a href="https://github.com/nou-hub-tech/eco-ressource-backend" rel="noopener">Voir le code du backend sur GitHub</a></p>
+</div>
+</div></section>
+
 <section id="parcours"><div class="wrap">
 <h2>Parcours</h2>
 <ul class="tl">
@@ -133,30 +189,6 @@ pre{margin:1.25rem 0 0;background:var(--surface);border:1.5px solid var(--line);
 <li><h3>Projet de fin d’études de licence</h3><div class="meta">Tunisie Telecom, Tunis · février à mai 2024</div><p>Plateforme de gestion électronique des courriers (Laravel, ReactJS).</p></li>
 <li><h3>Licence en sciences et technologies de l’information et de la communication, sécurité réseau</h3><div class="meta">Institut supérieur des études technologiques, Gabès · 2021 à 2024</div><p>Stages de perfectionnement (2023) et d’initiation (2022) chez Tunisie Telecom, Gabès : réseau de fibre optique et lignes d’abonnés.</p></li>
 </ul>
-</div></section>
-
-<section id="hebergement"><div class="wrap">
-<h2>Étude de cas : héberger ce portfolio comme un système de production</h2>
-<p class="about" style="margin-bottom:1.5rem">Voici l’architecture AWS que je prévois pour ce site. Cliquez sur une étape pour voir son rôle.</p>
-<div class="case">
-<div class="steps" id="steps"></div>
-<div class="panel" id="panel" aria-live="polite"></div>
-</div>
-<pre id="tf"><code>resource "aws_s3_bucket_public_access_block" "site" {
-  bucket                  = aws_s3_bucket.site.id
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
-}
-
-resource "aws_cloudfront_origin_access_control" "oac" {
-  name                              = "portfolio-oac"
-  origin_access_control_origin_type = "s3"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
-}</code></pre>
-<button class="btn alt copy" id="copy" type="button">Copier le code Terraform</button>
 </div></section>
 
 <section id="competences"><div class="wrap">
@@ -190,22 +222,33 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 </main>
 <footer><div class="wrap">Sirine Rhaiem · Tunis, Tunisie</div></footer>
 <script>
-(function(){
-var S=[
-["Push sur GitHub","Chaque modification du code déclenche le pipeline.","Le dépôt est la source unique de vérité : le site et l’infrastructure y vivent ensemble."],
-["GitHub Actions et OIDC","Le pipeline teste, construit et déploie.","GitHub s’authentifie auprès d’AWS par OIDC : aucune clé d’accès n’est stockée. Le rôle IAM n’a que les droits nécessaires (moindre privilège)."],
-["S3 privé","Les fichiers du site sont stockés dans un bucket fermé au public.","Seul CloudFront peut lire le bucket, grâce à Origin Access Control."],
-["CloudFront et ACM","Le site est servi en HTTPS depuis des points de présence proches des visiteurs.","Un certificat ACM chiffre les échanges. Les en-têtes de sécurité (CSP, HSTS) et le cache optimisé s’ajoutent ici."],
-["Route 53 et Terraform","Le nom de domaine pointe vers CloudFront.","Tout est décrit en Terraform, avec un état distant verrouillé et une alerte de budget pour surveiller les coûts."]];
-var st=document.getElementById("steps"),pn=document.getElementById("panel");
-function show(i){[].forEach.call(st.children,function(b,j){b.setAttribute("aria-pressed",j===i)});
-pn.innerHTML="<span class='plan'>Architecture cible</span><h3></h3><p></p><p></p>";
-pn.querySelector("h3").textContent=S[i][0];var p=pn.querySelectorAll("p");p[0].textContent=S[i][1];p[1].textContent=S[i][2];}
-S.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.textContent=(i+1)+". "+s[0];b.onclick=function(){show(i)};st.appendChild(b)});
-show(0);
-document.getElementById("copy").onclick=function(){var b=this,t=document.getElementById("tf").innerText;
-try{navigator.clipboard.writeText(t).then(function(){b.textContent="Copié"})}catch(e){b.textContent="Sélectionnez le code pour le copier"}};
 document.getElementById("theme").onclick=function(){var r=document.documentElement,d=r.dataset.theme?r.dataset.theme=="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=d?"light":"dark"};
+</script>
+<script>
+(function(){
+var EN={"À propos": "About", "Projets": "Projects", "Étude de cas": "Case study", "Parcours": "Background", "Compétences": "Skills", "Thème": "Theme", "Disponible pour un stage PFE": "Open to a final-year internship (PFE)", "Étudiante ingénieure Cloud & DevOps.": "Cloud & DevOps engineering student.", "J’apprends à concevoir, déployer et superviser des applications sur des infrastructures cloud privées et publiques. Je cherche un stage PFE d’ingénieur à Tunis.": "I’m learning to design, deploy and monitor applications on private and public cloud infrastructure. I’m looking for a final-year engineering internship (PFE) in Tunis.", "Voir mes projets": "See my projects", "M’écrire": "Email me", "Télécharger mon CV": "Download my CV", "Coder": "Code", "Conteneuriser": "Containerize", "Déployer": "Deploy", "Superviser": "Monitor", "Je suis en 3ᵉ année du cycle ingénieur informatique à ESPRIT, spécialisée en Architecture des Réseaux, Technologies de l’Information et Cloud Computing. Je m’intéresse au cloud, aux systèmes distribués et au DevOps. J’ai de l’expérience en développement web, en bases de données et en déploiement d’applications, avec trois stages et plusieurs projets académiques à mon actif.": "I’m in my 3rd year of the computer engineering program at ESPRIT, specializing in Network Architecture, Information Technology and Cloud Computing. I’m interested in cloud, distributed systems and DevOps. I have experience in web development, databases and application deployment, with three internships and several academic projects.", "Plateforme B2B d’économie circulaire": "B2B circular economy platform", "Conception et déploiement d’une plateforme de mutualisation des surplus industriels et de la logistique, avec de l’IA, sur un cloud privé OpenStack. Projet intégré Cloud à ESPRIT.": "Design and deployment of a platform for pooling industrial surpluses and logistics, with AI, on a private OpenStack cloud. Cloud integrated project at ESPRIT.", "Voir le code du backend sur GitHub": "View the backend code on GitHub", "ERP SaaS multi-tenant": "Multi-tenant SaaS ERP", "Développement et mise en production d’une plateforme ERP SaaS multi-tenant sur infrastructure cloud, pendant mon stage chez Benjeddou Technologie.": "Development and production release of a multi-tenant SaaS ERP platform on cloud infrastructure, during my internship at Benjeddou Technologie.", "Voir le code du frontend sur GitHub": "View the frontend code on GitHub", "Suivi des interventions informatiques": "IT intervention tracking", "Application web de gestion et de suivi des requêtes d’intervention informatique dans une usine d’acide phosphorique, au Groupe Chimique Tunisien.": "Web application for managing and tracking IT intervention requests in a phosphoric acid plant, at the Tunisian Chemical Group.", "Gestion de requêtes": "Request management", "Application desktop qui aide les étudiants à gérer leurs mobilités internationales. Projet intégré de développement Web Java.": "Desktop application that helps students manage their international mobility. Java Web Development integrated project.", "Gestion électronique des courriers": "Electronic mail management", "Conception et développement d’une plateforme de gestion électronique des courriers pour Tunisie Telecom (projet de fin d’études de licence).": "Design and development of an electronic mail management platform for Tunisie Telecom (bachelor’s final-year project).", "Voir le code sur GitHub": "View the code on GitHub", "Étude de cas : une plateforme B2B sur cloud privé OpenStack": "Case study: a B2B platform on a private OpenStack cloud", "Projet intégré Cloud à ESPRIT : une plateforme B2B d’économie circulaire (surplus industriels, logistique mutualisée, IA). Nous avons déployé le backend sur un cloud privé OpenStack de 7 machines et le frontend sur Azure. Le détail est masqué pour alléger la page.": "Cloud integrated project at ESPRIT: a B2B circular economy platform (industrial surpluses, pooled logistics, AI). We deployed the backend on a private OpenStack cloud of 7 machines and the frontend on Azure. The details are hidden to keep the page light.", "Afficher l’étude de cas": "Show the case study", "Cliquez sur un élément du schéma pour voir son rôle.": "Click an element of the diagram to see its role.", "Hébergé sur Azure": "Hosted on Azure", "appels vers l’API du backend": "calls to the backend API", "Cloud privé OpenStack : 7 machines, backend de la plateforme": "Private OpenStack cloud: 7 machines, platform backend", "Contrôleur": "Controller", "1 machine": "1 machine", "4 machines": "4 machines", "Stockage": "Storage", "2 machines": "2 machines", "Services OpenStack utilisés": "OpenStack services used", "Identité et authentification des utilisateurs et des services.": "Identity and authentication of users and services.", "Création et gestion des machines virtuelles.": "Creation and management of virtual machines.", "Réseaux, sous-réseaux, routeurs et adresses IP flottantes.": "Networks, subnets, routers and floating IP addresses.", "Volumes de stockage persistants attachés aux machines virtuelles.": "Persistent storage volumes attached to virtual machines.", "Tableau de bord web pour piloter le cloud.": "Web dashboard to manage the cloud.", "Orchestration : l’infrastructure est décrite dans des templates et redéployable.": "Orchestration: the infrastructure is described in templates and can be redeployed.", "Outils de déploiement et de supervision": "Deployment and monitoring tools", "Empaquetage des applications en conteneurs, identiques d’un environnement à l’autre.": "Packaging applications into containers, identical from one environment to another.", "Orchestration des conteneurs : déploiement, mise à l’échelle et redémarrage automatique.": "Container orchestration: deployment, scaling and automatic restarts.", "Automatisation de la configuration des machines, sans intervention manuelle.": "Automated machine configuration, with no manual intervention.", "Collecte des métriques de l’infrastructure et des applications.": "Collection of infrastructure and application metrics.", "Tableaux de bord pour visualiser ces métriques et suivre l’état de la plateforme.": "Dashboards to visualize these metrics and track the platform’s health.", "Défis techniques de cette architecture": "Technical challenges of this architecture", "Relier deux clouds": "Connecting two clouds", "Le frontend sur Azure doit joindre le backend sur OpenStack : exposer l’API en HTTPS via une IP flottante et autoriser l’origine du frontend (CORS).": "The frontend on Azure must reach the backend on OpenStack: expose the API over HTTPS through a floating IP and allow the frontend’s origin (CORS).", "Réseau sur 7 machines": "Networking across 7 machines", "Connecter le contrôleur, les nœuds compute et les nœuds de stockage, et configurer Neutron pour que les machines virtuelles communiquent correctement.": "Connect the controller, the compute nodes and the storage nodes, and configure Neutron so virtual machines communicate correctly.", "Données persistantes": "Persistent data", "Utiliser des volumes Cinder pour que les données du backend survivent à la suppression d’une machine virtuelle.": "Use Cinder volumes so the backend’s data survives the deletion of a virtual machine.", "Déploiement reproductible": "Reproducible deployment", "Décrire l’infrastructure avec Heat pour la recréer sans refaire chaque étape à la main.": "Describe the infrastructure with Heat to recreate it without redoing every step by hand.", "Projet intégré Cloud": "Cloud integrated project", "ESPRIT, Tunis · depuis novembre 2026": "ESPRIT, Tunis · since November 2026", "Plateforme B2B d’économie circulaire sur cloud privé OpenStack.": "B2B circular economy platform on a private OpenStack cloud.", "Stage d’ingénieur": "Engineering internship", "Benjeddou Technologie, Tunis · juin à août 2026": "Benjeddou Technologie, Tunis · June to August 2026", "Développement et déploiement en production d’un ERP SaaS multi-tenant (Angular, Spring Boot).": "Development and production deployment of a multi-tenant SaaS ERP (Angular, Spring Boot).", "Groupe Chimique Tunisien, Gabès · juin à août 2025": "Tunisian Chemical Group, Gabès · June to August 2025", "Application web de suivi des interventions informatiques industrielles.": "Web application for tracking industrial IT interventions.", "Cycle ingénieur en informatique": "Computer engineering program", "ESPRIT, Tunis · depuis 2024": "ESPRIT, Tunis · since 2024", "Spécialisation : Architecture des Réseaux, Technologies de l’Information et Cloud Computing.": "Specialization: Network Architecture, Information Technology and Cloud Computing.", "Projet de fin d’études de licence": "Bachelor’s final-year project", "Tunisie Telecom, Tunis · février à mai 2024": "Tunisie Telecom, Tunis · February to May 2024", "Plateforme de gestion électronique des courriers (Laravel, ReactJS).": "Electronic mail management platform (Laravel, ReactJS).", "Licence en sciences et technologies de l’information et de la communication, sécurité réseau": "Bachelor’s degree in information and communication science and technology, network security", "Institut supérieur des études technologiques, Gabès · 2021 à 2024": "Higher Institute of Technological Studies, Gabès · 2021 to 2024", "Stages de perfectionnement (2023) et d’initiation (2022) chez Tunisie Telecom, Gabès : réseau de fibre optique et lignes d’abonnés.": "Advanced (2023) and introductory (2022) internships at Tunisie Telecom, Gabès: fiber optic network and subscriber lines.", "Cloud et DevOps": "Cloud and DevOps", "Développement": "Development", "Données et mobile": "Data and mobile", "Réseaux": "Networking", "Packet Tracer, CCNA 1 et 2, Cybersecurity Essentials": "Packet Tracer, CCNA 1 and 2, Cybersecurity Essentials", "Méthode": "Method", "Notions d’Agile Scrum": "Agile Scrum fundamentals", "Langues": "Languages", "Arabe, français, anglais": "Arabic, French, English", "Certifications": "Certifications", "Formation de 40 heures, délivrée le 17 octobre 2026.": "40-hour course, issued on October 17, 2026.", "Vérifier le badge": "Verify the badge", "Badge d’AWS Training and Certification.": "Badge from AWS Training and Certification.", "Badge de Cisco (CCNA 2).": "Badge from Cisco (CCNA 2).", "Aussi : CCNA 1 · Cybersecurity Essentials.": "Also: CCNA 1 · Cybersecurity Essentials.", "Je recherche un stage PFE d’ingénieur autour du cloud, du DevOps et des systèmes distribués. Écrivez-moi, je réponds vite.": "I’m looking for a final-year engineering internship (PFE) in cloud, DevOps and distributed systems. Write to me, I reply quickly.", "CV en PDF": "CV as PDF", "Sirine Rhaiem · Tunis, Tunisie": "Sirine Rhaiem · Tunis, Tunisia", "Masquer l’étude de cas": "Hide the case study"};
+var K={fr:{az:["Frontend sur Azure","Interface web de la plateforme, hébergée sur Azure. Elle communique avec l’API du backend déployé sur notre cloud privé OpenStack."],
+ctl:["Contrôleur (1 machine)","Héberge les services de gestion du cloud : Keystone pour l’authentification, Horizon pour le tableau de bord, Heat pour l’orchestration, et les API de Nova, Neutron et Cinder."],
+cmp:["Nœuds compute (4 machines)","Exécutent les machines virtuelles créées par Nova. C’est là que tourne le backend de la plateforme."],
+sto:["Nœuds de stockage (2 machines)","Fournissent les volumes Cinder : le stockage persistant utilisé par les machines virtuelles."]},
+en:{az:["Frontend on Azure","The platform’s web interface, hosted on Azure. It talks to the API of the backend deployed on our private OpenStack cloud."],
+ctl:["Controller (1 machine)","Hosts the cloud management services: Keystone for authentication, Horizon for the dashboard, Heat for orchestration, and the Nova, Neutron and Cinder APIs."],
+cmp:["Compute nodes (4 machines)","Run the virtual machines created by Nova. This is where the platform’s backend runs."],
+sto:["Storage nodes (2 machines)","Provide the Cinder volumes: the persistent storage used by the virtual machines."]}};
+var lang="fr",cur="az",orig=new WeakMap();
+var o=document.getElementById("op"),b=document.querySelectorAll(".node"),lb=document.getElementById("lang");
+function show(k){cur=k;[].forEach.call(b,function(x){x.setAttribute("aria-pressed",x.dataset.k===k)});
+var t=K[lang][k];o.innerHTML="<h3></h3><p></p>";o.querySelector("h3").textContent=t[0];o.querySelector("p").textContent=t[1]}
+function walk(){var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
+while(n=w.nextNode()){if(n.parentNode.closest("script,style,#op,#lang"))continue;
+var raw=n.nodeValue,key=raw.trim().replace(/\s+/g," ");if(!key)continue;
+if(!orig.has(n))orig.set(n,raw);var r=orig.get(n),fr=r.trim().replace(/\s+/g," ");
+n.nodeValue=(lang==="en"&&EN[fr])?r.replace(r.trim(),EN[fr]):r}}
+[].forEach.call(b,function(x){x.onclick=function(){show(x.dataset.k)}});show("az");
+var t=document.getElementById("ostoggle"),body=document.getElementById("osbody");
+t.onclick=function(){var open=body.hidden;body.hidden=!open;t.setAttribute("aria-expanded",open);t.textContent=open?"Masquer l’étude de cas":"Afficher l’étude de cas";walk()};
+if(location.hash==="#openstack"){t.click()}
+lb.onclick=function(){lang=lang==="fr"?"en":"fr";lb.textContent=lang==="fr"?"EN":"FR";document.documentElement.lang=lang;walk();show(cur)};
 })();
 </script>
 </body>
